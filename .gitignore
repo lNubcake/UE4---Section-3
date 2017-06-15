@@ -10,3 +10,5 @@ BuildingEscape/Content/StarterContent/
 #VS generated file
 *.VC.db*
 *.opendb*
+*/ipch
+
