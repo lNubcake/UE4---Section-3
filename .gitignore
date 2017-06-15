@@ -12,3 +12,7 @@ BuildingEscape/Content/StarterContent/
 *.opendb*
 */ipch
 
+BuildingEscape/.vs/BuildingEscape/v15/ipch/AutoPCH/BUILDINGESCAPE-2b131d0f/BUILDINGESCAPEGAMEMODEBASE-42a6222b/BUILDINGESCAPEGAMEMODEBASE.ipch
+BuildingEscape/.vs/BuildingEscape/v15/ipch/AutoPCH/BUILDINGESCAPE-2b131d0f/OPENDOOR-96e342b8/OPENDOOR.ipch
+BuildingEscape/.vs/BuildingEscape/v15/ipch/AutoPCH/BUILDINGESCAPE-2b131d0f/POSITIONREPORT-11b613e8/POSITIONREPORT.ipch
+BuildingEscape/.vs/BuildingEscape/v15/ipch/AutoPCH/BUILDINGESCAPE-2b131d0f/POSITIONREPORT-578aa343/POSITIONREPORT.ipch
