@@ -1,7 +1,11 @@
 // Copyright Nubcake 2017
 
 #include "Grabber.h"
+#include "BuildingEscape.h"
+#include "GameFramework/Actor.h"
 
+
+#define OUT // this does absolutely nothing, just a reminder before parameters
 
 // Sets default values for this component's properties
 UGrabber::UGrabber()
@@ -19,15 +23,33 @@ void UGrabber::BeginPlay()
 {
 	Super::BeginPlay();
 
+	UE_LOG(LogTemp, Warning, TEXT("Grabber reporting for duty!"));
+
 	// ...
 	
 }
-
 
 // Called every frame
 void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	// Get the player view point this tick
+	FVector PlayerViewPointLocation;
+	FRotator PlayerViewPointRotation;
+	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(
+		OUT PlayerViewPointLocation,
+		OUT PlayerViewPointRotation
+	);
+	UE_LOG(LogTemp, Warning, TEXT("Location: %s , Rotation: %s"),
+		*(PlayerViewPointLocation.ToString()),
+		*(PlayerViewPointRotation.ToString())
+	)
+	// TODO Log out to test
+
+	// Ray-cast out to reach distance
+
+	// See what we hit
 
 	// ...
 }

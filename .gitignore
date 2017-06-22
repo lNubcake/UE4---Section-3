@@ -11,6 +11,7 @@ BuildingEscape/Content/StarterContent/
 *.VC.db*
 *.opendb*
 */ipch
+*/.vs
 
 BuildingEscape/.vs/BuildingEscape/v15/ipch/AutoPCH/BUILDINGESCAPE-2b131d0f/BUILDINGESCAPEGAMEMODEBASE-42a6222b/BUILDINGESCAPEGAMEMODEBASE.ipch
 BuildingEscape/.vs/BuildingEscape/v15/ipch/AutoPCH/BUILDINGESCAPE-2b131d0f/OPENDOOR-96e342b8/OPENDOOR.ipch
