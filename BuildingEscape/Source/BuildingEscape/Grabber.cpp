@@ -3,7 +3,9 @@
 #include "Grabber.h"
 #include "BuildingEscape.h"
 #include "GameFramework/Actor.h"
-#include "Classes/Kismet/KismetSystemLibrary.h"
+#include "Runtime/Engine/Public/DrawDebugHelpers.h"
+#include "Runtime/Engine/Classes/PhysicsEngine/PhysicsHandleComponent.h"
+#include "Runtime/Engine/Classes/Components/InputComponent.h"
 
 
 #define OUT // this does absolutely nothing, just a reminder before parameters
@@ -24,10 +26,36 @@ void UGrabber::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UE_LOG(LogTemp, Warning, TEXT("Grabber reporting for duty!"));
+	UE_LOG(LogTemp, Warning, TEXT("Grabber reporting for duty!"))
 
+	/// Look for attached Physics Handle
+	PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
+	if (PhysicsHandle != nullptr) 
+	{
+		
+	}
+	else {
+		UE_LOG(LogTemp,Error, TEXT("%s missing Physics handle component"),*GetOwner()->GetName())
+	}
+
+	/// Look for existing Input Component
+	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
+	if (InputComponent != nullptr) {
+		UE_LOG(LogTemp, Warning, TEXT("Input Component found"))
+			/// Bind the input axis
+			InputComponent->BindAction("Grab",IE_Pressed, this, &UGrabber::Grab);
+	}
+	else {
+		UE_LOG(LogTemp, Error, TEXT("%s missing Input Component"), *GetOwner()->GetName());
+	}
 	// ...
 	
+}
+
+void UGrabber::Grab() 
+{
+	//
+	UE_LOG(LogTemp, Warning, TEXT("Grab Pressed"))
 }
 
 // Called every frame
