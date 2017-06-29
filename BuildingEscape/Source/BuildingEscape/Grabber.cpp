@@ -3,6 +3,7 @@
 #include "Grabber.h"
 #include "BuildingEscape.h"
 #include "GameFramework/Actor.h"
+#include "Classes/Kismet/KismetSystemLibrary.h"
 
 
 #define OUT // this does absolutely nothing, just a reminder before parameters
@@ -34,22 +35,43 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// Get the player view point this tick
+	/// Get the player view point this tick
 	FVector PlayerViewPointLocation;
 	FRotator PlayerViewPointRotation;
 	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(
 		OUT PlayerViewPointLocation,
 		OUT PlayerViewPointRotation
 	);
-	UE_LOG(LogTemp, Warning, TEXT("Location: %s , Rotation: %s"),
-		*(PlayerViewPointLocation.ToString()),
-		*(PlayerViewPointRotation.ToString())
-	)
-	// TODO Log out to test
 
-	// Ray-cast out to reach distance
+	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * Reach;
+	// Draw a red trace in the world to visualise
+	DrawDebugLine(
+		GetWorld(),
+		PlayerViewPointLocation,
+		LineTraceEnd,
+		FColor(255,0,0),
+		false,
+		0.f,
+		0.f,
+		10.f
+	);
 
-	// See what we hit
+	/// Setup query parameters
+	FCollisionQueryParams TraceParameters(FName(TEXT("")), true, GetOwner());
+	/// Line-trace out to reach distance
+	FHitResult Hit;
+	GetWorld()->LineTraceSingleByObjectType(
+		OUT Hit,
+		PlayerViewPointLocation,
+		LineTraceEnd,
+		FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody),
+		TraceParameters
+	);
+	/// See what we hit
+	if(Hit.GetActor() != NULL)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Line trace hit: %s"), *(Hit.GetActor())->GetName())
+	}
 
 	// ...
 }
