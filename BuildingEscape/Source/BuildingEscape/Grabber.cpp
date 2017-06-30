@@ -58,6 +58,7 @@ void UGrabber::SetupInputComponent()
 
 void UGrabber::Grab() 
 {
+	if (!PhysicsHandle) { return; }
 	/// LINE TRACE and reach any actors with physics body collision channel set
 	auto HitResult = GetFirstPhysicsBodyInReach();
 	auto ComponentToGrab = HitResult.GetComponent(); // gets the mesh in our case 
@@ -74,6 +75,7 @@ void UGrabber::Grab()
 
 void UGrabber::Release()
 {
+	if (!PhysicsHandle) { return; }
 	PhysicsHandle->ReleaseComponent();
 }
 
@@ -82,7 +84,7 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	GetReachLineEnd();
+	if (!PhysicsHandle) { return; }
 
 	// If the physics handle is attached
 	if (PhysicsHandle->GrabbedComponent)
@@ -96,8 +98,6 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 /// Get the player view point this tick
 const FHitResult UGrabber::GetFirstPhysicsBodyInReach()
 {
-	
-
 	/// Setup query parameters
 	FCollisionQueryParams TraceParameters(FName(TEXT("")), true, GetOwner());
 	/// Line-trace out to reach distance
